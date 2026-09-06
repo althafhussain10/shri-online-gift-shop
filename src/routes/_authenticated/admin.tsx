@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Loader2, LogOut, Pencil, Plus, Store, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 
-import logo from "@/assets/shri-logo.jpg.asset.json";
+import logo from "@/assets/shri-logo.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { BRAND, CATEGORIES, formatPrice } from "@/lib/brand";
 import {
@@ -195,7 +195,7 @@ function AdminPage() {
         <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-4 md:px-6">
           <div className="flex min-w-0 items-center gap-3">
             <img
-              src={logo.url}
+              src={logo}
               alt="Shop logo"
               className="h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-gold/50"
             />

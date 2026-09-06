@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Cake, Heart, Gift, Baby, Sparkles, MessageCircle, ShieldCheck, Truck, PackageCheck, Star } from "lucide-react";
 
-import logo from "@/assets/shri-logo.jpg.asset.json";
+import logo from "@/assets/shri-logo.jpg";
 import banner from "@/assets/shri-banner-themed.jpg";
 import { BRAND, CATEGORIES, whatsappLink } from "@/lib/brand";
 import { fetchProducts } from "@/lib/products";
@@ -115,7 +115,7 @@ function Home() {
             <div className="relative">
               <div className="absolute -inset-6 rounded-full bg-gold/15 blur-2xl" />
               <img
-                src={logo.url}
+                src={logo}
                 alt="SHRI Online Gift Shop gift box logo"
                 className="relative w-64 rounded-3xl object-cover shadow-2xl ring-1 ring-gold/40 sm:w-80"
               />

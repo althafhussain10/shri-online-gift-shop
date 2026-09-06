@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 
-import logo from "@/assets/shri-logo.jpg.asset.json";
+import logo from "@/assets/shri-logo.jpg";
 import { BRAND, whatsappLink } from "@/lib/brand";
 
 export function SiteFooter() {
@@ -11,7 +11,7 @@ export function SiteFooter() {
         <div>
           <div className="flex min-w-0 items-center gap-3">
             <img
-              src={logo.url}
+              src={logo}
               alt="SHRI Online Gift Shop logo"
               className="h-14 w-14 shrink-0 rounded-full object-cover ring-1 ring-gold/50"
             />

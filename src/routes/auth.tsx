@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Lock } from "lucide-react";
 import { toast } from "sonner";
 
-import logo from "@/assets/shri-logo.jpg.asset.json";
+import logo from "@/assets/shri-logo.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -73,7 +73,7 @@ function AuthPage() {
       <div className="w-full max-w-md rounded-2xl border border-gold/30 bg-card p-8 shadow-2xl">
         <div className="flex flex-col items-center text-center">
           <img
-            src={logo.url}
+            src={logo}
             alt="SHRI Online Gift Shop logo"
             className="h-16 w-16 rounded-full object-cover ring-1 ring-gold/50"
           />

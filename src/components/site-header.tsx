@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Facebook, MessageCircle, Menu } from "lucide-react";
 import { useState } from "react";
 
-import logo from "@/assets/shri-logo.jpg.asset.json";
+import logo from "@/assets/shri-logo.jpg";
 import { BRAND, whatsappLink } from "@/lib/brand";
 import { Button } from "@/components/ui/button";
 
@@ -24,7 +24,7 @@ export function SiteHeader() {
       <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 md:gap-4 md:px-6">
         <Link to="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
           <img
-            src={logo.url}
+            src={logo}
             alt="SHRI Online Gift Shop logo"
             className="h-9 w-9 shrink-0 rounded-full object-cover ring-1 ring-gold/50 sm:h-11 sm:w-11"
           />
