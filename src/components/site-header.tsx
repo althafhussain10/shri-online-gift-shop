@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, MessageCircle, Menu } from "lucide-react";
+import { Facebook, MessageCircle, Menu, Instagram } from "lucide-react";
 import { useState } from "react";
 
 import logo from "@/assets/shri-logo.jpg";
@@ -59,6 +59,15 @@ export function SiteHeader() {
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-gold/40 text-gold transition-colors hover:bg-gold hover:text-navy-deep"
           >
             <Facebook className="h-4 w-4" />
+          </a>
+          <a
+            href={BRAND.instagram}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram page"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-gold/40 text-gold transition-colors hover:bg-gold hover:text-navy-deep"
+          >
+            <Instagram className="h-4 w-4" />
           </a>
           <Button
             asChild

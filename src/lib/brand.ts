@@ -4,7 +4,8 @@ export const BRAND = {
   city: "Erode",
   address: "21, Kamatchi Amman Kovil Street, Karungalpalayam, Erode - 638003",
   phones: ["9042770400", "9042870400"],
-  facebook: "https://www.facebook.com/Shrionlinegiftshoperode",
+  facebook: "https://www.facebook.com/share/1DCnVn4UBt/",
+  instagram: "https://www.instagram.com/shrionlinegiftshop?utm_source=qr&stkn=MXAzc29tdWEzdTh2ZQ==",
   handle: "Shrionlinegiftshoperode",
 };
 
