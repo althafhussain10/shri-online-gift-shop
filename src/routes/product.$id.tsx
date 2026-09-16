@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { ArrowLeft, Gift, MessageCircle, Minus, Plus } from "lucide-react";
+import { ArrowLeft, Gift, Minus, Plus, ShoppingCart } from "lucide-react";
 
-import { BRAND, formatPrice, orderMessage, whatsappLink } from "@/lib/brand";
+import { formatPrice } from "@/lib/brand";
+import { useCart } from "@/lib/cart";
 import { fetchProduct } from "@/lib/products";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -35,6 +36,7 @@ function ProductPage() {
   const { id } = Route.useParams();
   const [qty, setQty] = useState(1);
   const [imgIndex, setImgIndex] = useState(0);
+  const { addItem } = useCart();
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", id],
@@ -131,30 +133,17 @@ function ProductPage() {
                 </div>
               </div>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {BRAND.phones.map((phone) => (
-                  <Button
-                    key={phone}
-                    asChild
-                    size="lg"
-                    className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90"
-                  >
-                    <a
-                      href={whatsappLink(
-                        phone,
-                        orderMessage({
-                          name: product.name,
-                          price: product.price,
-                          quantity: qty,
-                        }),
-                      )}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <MessageCircle className="mr-2 h-5 w-5" /> Order · {phone}
-                    </a>
-                  </Button>
-                ))}
+              <div className="mt-6">
+                <Button
+                  size="lg"
+                  className="w-full bg-navy text-cream hover:bg-navy/90"
+                  onClick={() => addItem(product, qty)}
+                >
+                  <ShoppingCart className="mr-2 h-5 w-5" /> Add to cart
+                </Button>
+                <p className="mt-3 text-center text-sm text-muted-foreground">
+                  Payment details and order confirmation are handled personally on WhatsApp.
+                </p>
               </div>
             </div>
           </div>

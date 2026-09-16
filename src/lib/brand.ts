@@ -9,13 +9,7 @@ export const BRAND = {
   handle: "Shrionlinegiftshoperode",
 };
 
-export const CATEGORIES = [
-  "Birthday",
-  "Anniversary",
-  "Surprise",
-  "Kids",
-  "All Occasion",
-] as const;
+export const CATEGORIES = ["Birthday", "Anniversary", "Surprise", "Kids", "All Occasion"] as const;
 
 export type Category = (typeof CATEGORIES)[number];
 
@@ -29,4 +23,14 @@ export function whatsappLink(phone: string, message: string) {
 
 export function orderMessage(opts: { name: string; price: number; quantity: number }) {
   return `Hello ${BRAND.name}, I would like to order:\n\nProduct: ${opts.name}\nPrice: ${formatPrice(opts.price)}\nQuantity: ${opts.quantity}\n\nPlease confirm availability and delivery.`;
+}
+
+export function cartOrderMessage(
+  items: { name: string; price: number; quantity: number }[],
+  total: number,
+) {
+  const lines = items
+    .map((item) => `- ${item.name} x ${item.quantity} = ${formatPrice(item.price * item.quantity)}`)
+    .join("\n");
+  return `Hello ${BRAND.name}, I would like to order these gifts:\n\n${lines}\n\nEstimated total: ${formatPrice(total)}\n\nPlease confirm availability, payment details and delivery.`;
 }

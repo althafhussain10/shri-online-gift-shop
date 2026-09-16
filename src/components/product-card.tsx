@@ -1,15 +1,13 @@
 import { Link } from "@tanstack/react-router";
-import { Gift, MessageCircle } from "lucide-react";
+import { Gift, ShoppingCart } from "lucide-react";
 
-import { BRAND, formatPrice, orderMessage, whatsappLink } from "@/lib/brand";
+import { formatPrice } from "@/lib/brand";
+import { useCart } from "@/lib/cart";
 import type { ProductWithUrls } from "@/lib/products";
 import { Button } from "@/components/ui/button";
 
 export function ProductCard({ product }: { product: ProductWithUrls }) {
-  const wa = whatsappLink(
-    BRAND.phones[0]!,
-    orderMessage({ name: product.name, price: product.price, quantity: 1 }),
-  );
+  const { addItem } = useCart();
   const cover = product.imageUrls[0];
 
   return (
@@ -54,13 +52,11 @@ export function ProductCard({ product }: { product: ProductWithUrls }) {
             </Link>
           </Button>
           <Button
-            asChild
             size="sm"
-            className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90"
+            className="bg-navy text-cream hover:bg-navy/90"
+            onClick={() => addItem(product)}
           >
-            <a href={wa} target="_blank" rel="noreferrer">
-              <MessageCircle className="mr-1.5 h-4 w-4" /> Order
-            </a>
+            <ShoppingCart className="mr-1.5 h-4 w-4" /> Add to cart
           </Button>
         </div>
       </div>

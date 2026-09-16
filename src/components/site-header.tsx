@@ -1,10 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, MessageCircle, Menu, Instagram } from "lucide-react";
+import { Facebook, MessageCircle, Menu, ShoppingBag, Instagram } from "lucide-react";
 import { useState } from "react";
 
 import logo from "@/assets/shri-logo.jpg";
 import { BRAND, whatsappLink } from "@/lib/brand";
 import { Button } from "@/components/ui/button";
+import { CartDrawer } from "@/components/cart-drawer";
+import { useCart } from "@/lib/cart";
 
 const nav = [
   { label: "Home", to: "/" },
@@ -14,6 +16,8 @@ const nav = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const { itemCount } = useCart();
   const wa = whatsappLink(
     BRAND.phones[0]!,
     `Hello ${BRAND.name}, I'd like to know more about your gifts.`,
@@ -69,6 +73,19 @@ export function SiteHeader() {
           >
             <Instagram className="h-4 w-4" />
           </a>
+          <button
+            type="button"
+            aria-label={`Open cart${itemCount ? `, ${itemCount} items` : ""}`}
+            onClick={() => setCartOpen(true)}
+            className="relative grid h-9 w-9 shrink-0 place-items-center rounded-full border border-gold/40 text-gold transition-colors hover:bg-gold hover:text-navy-deep"
+          >
+            <ShoppingBag className="h-4 w-4" />
+            {itemCount > 0 && (
+              <span className="absolute -right-1 -top-1 grid h-4 min-w-4 place-items-center rounded-full bg-gold px-1 text-[10px] font-bold text-navy-deep">
+                {itemCount}
+              </span>
+            )}
+          </button>
           <Button
             asChild
             size="sm"
@@ -111,6 +128,7 @@ export function SiteHeader() {
           </a>
         </nav>
       )}
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </header>
   );
 }
