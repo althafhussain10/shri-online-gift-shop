@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 import type { ProductWithUrls } from "@/lib/products";
 
 type CartItem = {
-  product: Pick<ProductWithUrls, "id" | "name" | "price" | "imageUrls">;
+  product: Pick<ProductWithUrls, "id" | "name" | "price" | "imageUrls" | "stock">;
   quantity: number;
 };
 
@@ -27,7 +27,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored) setItems(JSON.parse(stored) as CartItem[]);
+      if (stored) {
+        const savedItems = JSON.parse(stored) as CartItem[];
+        setItems(savedItems.filter((item) => item.product.stock > 0 && item.quantity > 0));
+      }
     } catch {
       window.localStorage.removeItem(STORAGE_KEY);
     } finally {
@@ -48,12 +51,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
       itemCount,
       total,
       addItem: (product, quantity = 1) => {
+        if (product.stock <= 0) return;
         setItems((current) => {
           const existing = current.find((item) => item.product.id === product.id);
           if (existing) {
             return current.map((item) =>
               item.product.id === product.id
-                ? { ...item, quantity: item.quantity + quantity }
+                ? { ...item, quantity: Math.min(item.quantity + quantity, product.stock) }
                 : item,
             );
           }
@@ -65,8 +69,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 name: product.name,
                 price: product.price,
                 imageUrls: product.imageUrls,
+                stock: product.stock,
               },
-              quantity,
+              quantity: Math.min(quantity, product.stock),
             },
           ];
         });
@@ -75,7 +80,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setItems((current) =>
           quantity <= 0
             ? current.filter((item) => item.product.id !== id)
-            : current.map((item) => (item.product.id === id ? { ...item, quantity } : item)),
+            : current.flatMap((item) => {
+                if (item.product.id !== id) return [item];
+                if (item.product.stock <= 0) return [];
+                return [{ ...item, quantity: Math.min(quantity, item.product.stock) }];
+              }),
         );
       },
       removeItem: (id) => setItems((current) => current.filter((item) => item.product.id !== id)),

@@ -40,6 +40,9 @@ export function ProductCard({ product }: { product: ProductWithUrls }) {
         <p className="line-clamp-2 text-xs text-muted-foreground sm:text-sm">
           {product.description}
         </p>
+        <p className="text-xs text-muted-foreground">
+          {product.stock > 0 ? `In stock: ${product.stock}` : "Out of stock"}
+        </p>
         <div className="mt-auto grid gap-2 pt-1 sm:grid-cols-2">
           <Button
             asChild
@@ -55,8 +58,10 @@ export function ProductCard({ product }: { product: ProductWithUrls }) {
             size="sm"
             className="bg-navy text-cream hover:bg-navy/90"
             onClick={() => addItem(product)}
+            disabled={product.stock <= 0}
           >
-            <ShoppingCart className="mr-1.5 h-4 w-4" /> Add to cart
+            <ShoppingCart className="mr-1.5 h-4 w-4" />
+            {product.stock > 0 ? "Add to cart" : "Out of stock"}
           </Button>
         </div>
       </div>

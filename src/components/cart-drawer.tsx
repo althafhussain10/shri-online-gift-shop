@@ -92,6 +92,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                           aria-label={`Increase ${product.name} quantity`}
                           onClick={() => updateQuantity(product.id, quantity + 1)}
                           className="grid h-7 w-7 place-items-center text-navy"
+                          disabled={quantity >= product.stock}
                         >
                           <Plus className="h-3 w-3" />
                         </button>

@@ -107,7 +107,7 @@ function ProductPage() {
               <div className="gold-rule my-6" />
               <p className="whitespace-pre-line text-muted-foreground">{product.description}</p>
               <p className="mt-4 text-sm text-muted-foreground">
-                {product.stock > 0 ? `In stock: ${product.stock}` : "Made to order"}
+                {product.stock > 0 ? `In stock: ${product.stock}` : "Out of stock"}
               </p>
 
               <div className="mt-8 flex items-center gap-4">
@@ -118,6 +118,7 @@ function ProductPage() {
                     aria-label="Decrease quantity"
                     className="grid h-10 w-10 place-items-center text-navy"
                     onClick={() => setQty((q) => Math.max(1, q - 1))}
+                    disabled={qty <= 1 || product.stock <= 0}
                   >
                     <Minus className="h-4 w-4" />
                   </button>
@@ -126,7 +127,8 @@ function ProductPage() {
                     type="button"
                     aria-label="Increase quantity"
                     className="grid h-10 w-10 place-items-center text-navy"
-                    onClick={() => setQty((q) => q + 1)}
+                    onClick={() => setQty((q) => Math.min(product.stock, q + 1))}
+                    disabled={qty >= product.stock || product.stock <= 0}
                   >
                     <Plus className="h-4 w-4" />
                   </button>
@@ -138,8 +140,10 @@ function ProductPage() {
                   size="lg"
                   className="w-full bg-navy text-cream hover:bg-navy/90"
                   onClick={() => addItem(product, qty)}
+                  disabled={product.stock <= 0}
                 >
-                  <ShoppingCart className="mr-2 h-5 w-5" /> Add to cart
+                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  {product.stock > 0 ? "Add to cart" : "Out of stock"}
                 </Button>
                 <p className="mt-3 text-center text-sm text-muted-foreground">
                   Payment details and order confirmation are handled personally on WhatsApp.
